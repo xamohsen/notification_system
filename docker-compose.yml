@@ -1,0 +1,26 @@
+# docker-compose.yml
+version: '3'
+
+services:
+  app:
+    depends_on:
+      - db
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_DATABASE: notification_system
+      RAILS_MAX_THREADS: 5
+    volumes:
+      - ".:/notification_system"
+      - "./config/docker/database.yml:/notification_system/config/database.yml"
+    tty: true
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: notification_system
+    ports:
+      - "3307:3306"
