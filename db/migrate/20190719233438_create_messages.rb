@@ -3,8 +3,6 @@ class CreateMessages < ActiveRecord::Migration[5.2]
     create_table :messages do |t|
       t.string :icon
       t.string :link_to
-      t.string :title
-      t.string :body
       t.timestamps
     end
 
