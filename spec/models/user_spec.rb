@@ -16,6 +16,6 @@ RSpec.describe User, type: :model do
   it {should validate_presence_of(:name)}
   it {should validate_presence_of(:email)}
   describe "Associations" do
-    it.skip {should have_many(:notification)}
+    it {should have_many(:notifications)}
   end
 end

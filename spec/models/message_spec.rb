@@ -22,4 +22,9 @@ RSpec.describe Message, type: :model do
     subject.title = nil
     expect(subject).to_not be_valid
   end
+
+  describe "ActiveRecord associations" do
+    it {should have_many(:notifications)}
+  end
+
 end
