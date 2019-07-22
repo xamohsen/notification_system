@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   get '/message/:id/(:local)', to: 'message#show'
   get '/messages/(:local)', to: 'message#index'
 
+
+  post '/notification/', to: 'notification#sendOneNotification'
 end
