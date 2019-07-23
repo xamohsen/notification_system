@@ -3,7 +3,7 @@ module Response
     if object == nil
       render json: {message: 'Not fond'}, status: :not_found
     else
-      render json: object.as_json(:except => :id), status: status
+      render json: object.as_json, status: status
     end
   end
 end

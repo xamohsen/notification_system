@@ -10,6 +10,14 @@ do
 done
 echo "Done!! database is ready *_*"
 
+echo "Wait for rabbitMq"
+until nc -z -v -w30 rabbitmq 5672
+do
+  echo "Waiting for rabbitMq connection..."
+  # wait for 5 seconds before check again
+  sleep 5
+done
+echo "Done!! rabbitMq is ready *_*"
 
 # check database creation and migration
 bundle exec rake db:migrate 2>/dev/null || bundle exec rake db:create db:migrate
