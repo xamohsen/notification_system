@@ -1,5 +1,5 @@
 #! /bin/sh
-
+set -m
 # wait for database
 echo "Wait for database"
 until nc -z -v -w30 db 3306
@@ -22,5 +22,9 @@ echo "Done!! rabbitMq is ready *_*"
 # check database creation and migration
 bundle exec rake db:migrate 2>/dev/null || bundle exec rake db:create db:migrate
 echo "All is Done! All Services are Up"
+
 #run the server
-bundle exec  puma -C config/puma.rb
+bundle exec  puma -C config/puma.rb &
+
+rake sneakers:run
+fg %1
