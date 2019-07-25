@@ -1,7 +1,7 @@
 module Response
-  def json_response(object, status = :ok)
+  def json_response(object, status = :ok, message= "Not Found")
     if object == nil
-      render json: {message: 'Not fond'}, status: :not_found
+      render json: {message: message}, status: :not_found
     else
       render json: object.as_json, status: status
     end
