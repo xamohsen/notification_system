@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   get '/messages/(:local)', to: 'message#index'
 
 
-  post '/notification/', to: 'notification#sendOneNotification'
+  post '/notification/', to: 'notification#sendNotification'
+  post '/notification_group/', to: 'notification#sendGroupNotification'
+
 end
