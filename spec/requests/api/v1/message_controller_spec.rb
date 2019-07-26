@@ -114,7 +114,7 @@ RSpec.describe 'Api::V1::MessageController', type: :request do
       Message.delete_all
     end
   end
-  describe "Put /api/v1application/" do
+  describe "Put /api/v1/messages/" do
     let!(:message) {create :message}
     context 'when the request is valid and en local' do
       it 'returns status code 200' do

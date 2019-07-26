@@ -1,24 +1,13 @@
-# README
+### Swvl Notification APIs
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### To run the app
+- Clone the repo
+- ```cd notification_system```
+- run ``` docker-compose up```
 
-Things you may want to cover:
+#### To run specs
+- ```docker exec -it notification_system_app_1 bash```
+- ```rspec```
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#### API Docs
+-  https://documenter.getpostman.com/view/54956/SVYjUNaJ?version=latest
