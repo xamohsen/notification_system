@@ -7,7 +7,6 @@ class TextMessenger
     #                            to: 'YOUR PERSONAL PHONE NUMBER GOES HERE',
     #                            body: message
     #                        })
-    raise 'An error has occurred'
     puts "SMS sent: ", message
   end
 
