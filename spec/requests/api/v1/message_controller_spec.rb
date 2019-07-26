@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe MessageController, type: :request do
-  describe "Post /application/" do
+RSpec.describe 'Api::V1::MessageController', type: :request do
+  describe "Post //api/v1/application/" do
     context 'when the request is valid and en local' do
       before :all do
-        post "/message/", params: {message: {title: 'title#en', body: "body#en", icon: 'icon'}}
+        post "/api/v1/message/", params: {message: {title: 'title#en', body: "body#en", icon: 'icon'}}
       end
       it 'returns status code 200' do
         expect(response).to have_http_status(201)
@@ -35,7 +35,7 @@ RSpec.describe MessageController, type: :request do
 
     context 'when the request is valid and ar local' do
       before :all do
-        post "/message/", params: {message: {title: 'عنوان', body: "محتوي", icon: 'icon'}, local: 'ar'}
+        post "/api/v1/message/", params: {message: {title: 'عنوان', body: "محتوي", icon: 'icon'}, local: 'ar'}
       end
       it 'should create message with ar local -> en title = nil' do
         I18n.locale = 'en'
@@ -54,19 +54,19 @@ RSpec.describe MessageController, type: :request do
 
     context 'when the request is invalid' do
       it 'returns status code 422#1' do
-        post "/message/", params: {message: {body: "body#en", icon: 'icon'}, local: 'en'}
+        post "/api/v1/message/", params: {message: {body: "body#en", icon: 'icon'}, local: 'en'}
         expect(response.message).to eq('Unprocessable Entity')
       end
       it 'returns message Unprocessable Entity' do
-        post "/message/", params: {message: {body: "body#en", icon: 'icon'}, local: 'en'}
+        post "/api/v1/message/", params: {message: {body: "body#en", icon: 'icon'}, local: 'en'}
         expect(response.message).to eq('Unprocessable Entity')
       end
       it 'returns status code 422#2' do
-        post "/message/", params: {}
+        post "/api/v1/message/", params: {}
         expect(response.message).to eq('Unprocessable Entity')
       end
       it 'returns status code 422#3' do
-        post "/message/", params: {message: {}}
+        post "/api/v1/message/", params: {message: {}}
         expect(response.message).to eq('Unprocessable Entity')
       end
       after :each do
@@ -75,24 +75,24 @@ RSpec.describe MessageController, type: :request do
     end
   end
 
-  describe "get /message/:id" do
+  describe "get /api/v1/message/:id" do
     let!(:message) {create :message}
     it 'returns status code 200' do
-      get "/message/#{message["id"]}"
+      get "/api/v1/message/#{message["id"]}"
       expect(response).to have_http_status(200)
     end
     it 'returns status code 404' do
-      get "/message/#{message["id"] + 10}"
+      get "/api/v1/message/#{message["id"] + 10}"
       expect(response).to have_http_status(404)
     end
     it 'returns message content' do
-      get "/message/#{message["id"]}"
+      get "/api/v1/message/#{message["id"]}"
       expect(json['title']).to eq message['title']
       expect(json['body']).to eq message['body']
       expect(json['icon']).to eq message['icon']
     end
     it 'returns nil message content for ar local' do
-      get "/message/#{message["id"]}/#{'ar'}"
+      get "/api/v1/message/#{message["id"]}/#{'ar'}"
       expect(json['title']).to eq nil
       expect(json['body']).to eq nil
     end
@@ -103,26 +103,26 @@ RSpec.describe MessageController, type: :request do
   describe "get /messages/" do
     let!(:messages) {create_list :message, 100}
     it 'returns status code 200' do
-      get "/messages/"
+      get "/api/v1/messages/"
       expect(response).to have_http_status(200)
     end
     it 'returns count' do
-      get "/messages/"
+      get "/api/v1/messages/"
       expect(json.length).to eq(100)
     end
     after :all do
       Message.delete_all
     end
   end
-  describe "Put /application/" do
+  describe "Put /api/v1application/" do
     let!(:message) {create :message}
     context 'when the request is valid and en local' do
       it 'returns status code 200' do
-        put "/message/", params: {message: {id: message['id'], title: 'title#en', body: "body#en", icon: 'icon'}}
+        put "/api/v1/message/", params: {message: {id: message['id'], title: 'title#en', body: "body#en", icon: 'icon'}}
         expect(response).to have_http_status(200)
       end
       it 'should add ar content' do
-        put "/message/", params: {message: {id: message['id'], title: 'arabic', body: "arabic", icon: 'icon'}, local: 'ar'}
+        put "/api/v1/message/", params: {message: {id: message['id'], title: 'arabic', body: "arabic", icon: 'icon'}, local: 'ar'}
         expect(response).to have_http_status(200)
         I18n.locale = :en
         en_message = Message.last
